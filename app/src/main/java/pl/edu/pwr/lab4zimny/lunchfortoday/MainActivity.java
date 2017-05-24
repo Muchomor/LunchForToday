@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        restaurantName = (TextView) findViewById(R.id.textView1);
+        restaurantName = (TextView) findViewById(R.id.restaurantName);
         restaurantHelper = new RestaurantHelper();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager
