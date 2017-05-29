@@ -13,26 +13,26 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity {
+
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
-    private TextView restaurantName;
-    private TextView shakeTextView;
     private RestaurantHelper restaurantHelper;
-    private Button facebookButton;
-    private Button websiteButton;
+    @BindView(R.id.restaurant_name) private TextView restaurantName;
+    @BindView(R.id.shake_text_view) private TextView shakeTextView;
+    @BindView(R.id.facebook_button) private Button facebookButton;
+    @BindView(R.id.website_button) private Button websiteButton;
     Intent facebookIntent;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        restaurantName = (TextView) findViewById(R.id.restaurant_name);
-        facebookButton = (Button) findViewById(R.id.facebook_button);
-        websiteButton = (Button) findViewById(R.id.website_button);
-        shakeTextView = (TextView) findViewById(R.id.shake_text_view);
+        ButterKnife.bind(this);
         restaurantHelper = new RestaurantHelper();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager

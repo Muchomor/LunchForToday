@@ -29,5 +29,4 @@ public class RestaurantHelper {
     public Restaurant pickRestaurant(int index){
         return restaurants.get(index);
     }
-
 }
