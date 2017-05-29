@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
     private TextView restaurantName;
+    private TextView shakeTextView;
     private RestaurantHelper restaurantHelper;
     private Button facebookButton;
     private Button websiteButton;
@@ -28,23 +29,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        restaurantName = (TextView) findViewById(R.id.restaurantName);
-        facebookButton = (Button) findViewById(R.id.facebookButton);
-        websiteButton = (Button) findViewById(R.id.websiteButton);
+        restaurantName = (TextView) findViewById(R.id.restaurant_name);
+        facebookButton = (Button) findViewById(R.id.facebook_button);
+        websiteButton = (Button) findViewById(R.id.website_button);
+        shakeTextView = (TextView) findViewById(R.id.shake_text_view);
         restaurantHelper = new RestaurantHelper();
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager
                 .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
         mShakeDetector = new ShakeDetector();
         mShakeDetector.setOnShakeListener(new ShakeDetector.OnShakeListener() {
-
             @Override
             public void onShake(int count) {
-				/*
-				 * The following method, "handleShakeEvent(count):" is a stub //
-				 * method you would use to setup whatever you want done once the
-				 * device has been shook.
-				 */
                 handleShakeEvent();
             }
         });
@@ -53,13 +50,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        // Add the following line to register the Session Manager Listener onResume
         mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
     public void onPause() {
-        // Add the following line to unregister the Sensor Manager onPause
         mSensorManager.unregisterListener(mShakeDetector);
         super.onPause();
     }
@@ -70,10 +65,14 @@ public class MainActivity extends AppCompatActivity {
         restaurantName.setText(restaurantHelper.pickRestaurant(random).getName());
         restaurantName.setVisibility(View.VISIBLE);
 
+        setFacebookButtonListener(random);
+        changeVisibilities();
+    }
+
+    public void setFacebookButtonListener(int random){
         facebookIntent = new Intent(Intent.ACTION_VIEW);
         String facebookUrl = restaurantHelper.pickRestaurant(random).getFacebookPageURL(this);
         facebookIntent.setData(Uri.parse(facebookUrl));
-        startActivity(facebookIntent);
 
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,4 +81,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void changeVisibilities(){
+        shakeTextView.setVisibility(View.INVISIBLE);
+        facebookButton.setVisibility(View.VISIBLE);
+        websiteButton.setVisibility(View.VISIBLE);
+    }
+
 }

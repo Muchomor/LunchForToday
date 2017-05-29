@@ -38,7 +38,7 @@ public class Restaurant {
             if (versionCode >= 3002850) { //newer versions of fb app
                 return "fb://facewebmodal/f?href=" + facebookAddress;
             } else { //older versions of fb app
-                return "fb://page/" + "100002123557545";
+                return "fb://page/" + "100002123557545"; //funny prank
             }
         } catch (PackageManager.NameNotFoundException e) {
             return facebookAddress; //normal web url
