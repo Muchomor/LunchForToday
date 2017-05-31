@@ -1,11 +1,11 @@
 package pl.edu.pwr.lab4zimny.lunchfortoday;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,17 +16,22 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeDetector mShakeDetector;
     private RestaurantHelper restaurantHelper;
-    @BindView(R.id.restaurant_name) private TextView restaurantName;
-    @BindView(R.id.shake_text_view) private TextView shakeTextView;
-    @BindView(R.id.facebook_button) private Button facebookButton;
-    @BindView(R.id.website_button) private Button websiteButton;
+    @BindView(R.id.restaurant_name)
+    TextView restaurantName;
+    @BindView(R.id.shake_text_view)
+    TextView shakeTextView;
+    @BindView(R.id.facebook_button)
+    Button facebookButton;
+    @BindView(R.id.website_button)
+    Button websiteButton;
     Intent facebookIntent;
+    Intent websiteIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer, SensorManager.SENSOR_DELAY_UI);
     }
 
     @Override
@@ -59,17 +64,18 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
-    public void handleShakeEvent(){
+    public void handleShakeEvent() {
         Random rand = new Random();
         int random = rand.nextInt(restaurantHelper.restaurants.size());
         restaurantName.setText(restaurantHelper.pickRestaurant(random).getName());
         restaurantName.setVisibility(View.VISIBLE);
 
         setFacebookButtonListener(random);
+        setWebsiteButtonListener(random);
         changeVisibilities();
     }
 
-    public void setFacebookButtonListener(int random){
+    public void setFacebookButtonListener(int random) {
         facebookIntent = new Intent(Intent.ACTION_VIEW);
         String facebookUrl = restaurantHelper.pickRestaurant(random).getFacebookPageURL(this);
         facebookIntent.setData(Uri.parse(facebookUrl));
@@ -82,10 +88,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void changeVisibilities(){
+    public void setWebsiteButtonListener(int random) {
+        Uri uriUrl = Uri.parse(restaurantHelper.pickRestaurant(random).getUrl());
+        websiteIntent = new Intent(Intent.ACTION_VIEW, uriUrl);
+
+        websiteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(websiteIntent);
+            }
+        });
+    }
+
+    public void changeVisibilities() {
         shakeTextView.setVisibility(View.INVISIBLE);
         facebookButton.setVisibility(View.VISIBLE);
         websiteButton.setVisibility(View.VISIBLE);
     }
-
 }
