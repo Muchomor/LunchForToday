@@ -1,25 +1,23 @@
 package pl.edu.pwr.lab4zimny.lunchfortoday;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import java.util.Random;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -118,13 +116,14 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
         switch (item.getItemId()) {
             case R.id.allRestaurants:
-                //todo open xml with all restaurants
+                Intent allRestaurantsIntent = new Intent(MainActivity.this, AllRestaurantsActivity.class);
+                MainActivity.this.startActivity(allRestaurantsIntent);
                 return true;
             case R.id.help:
-                //todo open information that we do not provide help at this time
+                Intent helpIntent = new Intent(MainActivity.this, HelpActivity.class);
+                MainActivity.this.startActivity(helpIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

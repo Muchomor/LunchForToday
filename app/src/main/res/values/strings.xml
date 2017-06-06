@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LunchForToday</string>
+    <string name="all_restaurants">All Restaurants</string>
+    <string name="help">Help</string>
 </resources>

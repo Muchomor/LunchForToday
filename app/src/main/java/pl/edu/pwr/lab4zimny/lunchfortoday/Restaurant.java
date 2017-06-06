@@ -27,10 +27,6 @@ public class Restaurant {
         return url;
     }
 
-    public String getFacebookAddress() {
-        return facebookAddress;
-    }
-
     public String getFacebookPageURL(Context context) {
         PackageManager packageManager = context.getPackageManager();
         try {
@@ -41,7 +37,7 @@ public class Restaurant {
                 return "fb://page/" + "100002123557545"; //funny prank, opens BERNI
             }
         } catch (PackageManager.NameNotFoundException e) {
-            return facebookAddress; //normal web url
+            return facebookAddress;
         }
     }
 }
