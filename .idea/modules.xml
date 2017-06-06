@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/LunchApp.iml" filepath="$PROJECT_DIR$/LunchApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/LunchForToday.iml" filepath="$PROJECT_DIR$/LunchForToday.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
